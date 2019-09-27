@@ -1,4 +1,5 @@
 const { User } = require('../../sequelize');
+const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const passportJWT = require('passport-jwt');
@@ -28,7 +29,8 @@ let strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
 passport.use(strategy);
 
 const create = async (req, res) => {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
+    password = crypto.createHash('sha256').update(password).digest('base64');
     let user = await User.findOne({
         where: { email: email },
     });
@@ -53,7 +55,8 @@ const create = async (req, res) => {
 };
   
 const login = async (req, res) => {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
+    password = crypto.createHash('sha256').update(password).digest('base64');
     if (!email && !password) {
         res.status(401).json({ 
             message: 'Email and password is required' 
@@ -93,7 +96,6 @@ const login = async (req, res) => {
                 message: 'Some error occurred while signing in'
             });
         });
-
     }
 }
 
@@ -122,7 +124,8 @@ const remove = async (req, res) => {
   
 const update = async (req, res) => {
     const userId = req.params.userId;
-    const { email, password } = req.body;
+    let { email, password } = req.body;
+    password = crypto.createHash('sha256').update(password).digest('base64');
     await User.update(
         {
             email: email,
