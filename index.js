@@ -14,6 +14,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const usersRouter = require('./app/routes/users');
 const shopifyRouter = require('./app/routes/shopify');
+const productRouter = require('./app/routes/products');
+const imageRouter = require('./app/routes/images');
 
 // set some basic routes
 app.get('/', function(req, res) {
@@ -25,6 +27,12 @@ app.use('/user', usersRouter);
 
 // shopify route
 app.use('/shopify', shopifyRouter);
+
+// product route
+app.use('/product', productRouter);
+
+// image route
+app.use('/image', imageRouter);
 
 // protected route
 app.get('/test_token', passport.authenticate('jwt', { session: false }), function(req, res) {

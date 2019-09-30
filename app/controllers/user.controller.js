@@ -117,7 +117,7 @@ const remove = async (req, res) => {
             });            
         }
         return res.status(500).json({
-            message: 'Could not delete note with id ' + userId
+            message: 'Could not delete user with id ' + userId
         });
     });
 };
@@ -146,13 +146,13 @@ const update = async (req, res) => {
             });                
         }
         res.status(500).json({
-            message: err.message || 'Some error occurred while updating the User.'
+            message: err.message || 'Some error occurred while updating the image.'
         });
     });
 };
 
 const findAll = async (req, res) => {
-    User.findAll()
+    await User.findAll()
     .then(users => {
         res.json(users);
     }).catch(err => {

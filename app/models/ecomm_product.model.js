@@ -45,6 +45,9 @@ module.exports = (sequelize, type) => {
         },
         ecomm_store_id: {
             type: type.INTEGER
+        },
+        has_asset: {
+            type: type.BOOLEAN
         }
     },
     {
