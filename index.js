@@ -35,9 +35,9 @@ app.use('/product', productRouter);
 app.use('/image', imageRouter);
 
 // protected route
-// app.get('/test_token', passport.authenticate('jwt', { session: false }), function(req, res) {
-//   res.json('Success! You can now see this without a token.');
-// });
+app.get('/test_token', passport.authenticate('jwt', { session: false }), function(req, res) {
+  res.json('Success! You can now see this without a token.');
+});
 
 // start app
 app.listen(4800, function() {
